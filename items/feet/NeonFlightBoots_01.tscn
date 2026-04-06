@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dd0trpkw7x832"]
+
+[ext_resource type="PackedScene" uid="uid://451v7rl4ro7t" path="res://items/feet/Meshy_AI_Neon_Flight_Boots_0405014843_texture.glb" id="1_b13fu"]
+
+[node name="NeonFlightBoots" type="Node3D" unique_id=1571407476]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1362982728]
+
+[node name="Meshy_AI_Neon_Flight_Boots_0405014843_texture" parent="ModelOffset" unique_id=237712419 instance=ExtResource("1_b13fu")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)

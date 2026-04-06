@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://sac27xc165si"]
+
+[ext_resource type="PackedScene" uid="uid://c8f45csfw40yh" path="res://items/head/models/Meshy_AI_Static_Relic_0405031701_texture.glb" id="1_45ij7"]
+
+[node name="TvHat01" type="Node3D" unique_id=2083449708]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1250924775]
+
+[node name="Meshy_AI_Static_Relic_0405031701_texture" parent="ModelOffset" unique_id=1868385522 instance=ExtResource("1_45ij7")]

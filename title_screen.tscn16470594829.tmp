@@ -1,0 +1,348 @@
+[gd_scene format=3 uid="uid://c2ul1qxtg38yk"]
+
+[ext_resource type="Script" uid="uid://b8g4rjb53mps1" path="res://title_screen.gd" id="1_013yr"]
+[ext_resource type="Texture2D" uid="uid://by2xqdaumi5hw" path="res://scripts/titlescreenimages/wizard1.png" id="1_jqemp"]
+[ext_resource type="Texture2D" uid="uid://bmbvm165cfj8q" path="res://scripts/titlescreenimages/Untitled.png" id="2_013yr"]
+[ext_resource type="Texture2D" uid="uid://bben4sq7qo8qv" path="res://scripts/titlescreenimages/blue beam.png" id="3_8vmu4"]
+[ext_resource type="Shader" uid="uid://kvikd7h5mlij" path="res://title_screen.gdshader" id="4_8vmu4"]
+[ext_resource type="Texture2D" uid="uid://xat4sq571p28" path="res://scripts/titlescreenimages/Untitled2.png" id="4_xfn3p"]
+[ext_resource type="Texture2D" uid="uid://b6g17qxtudwqy" path="res://scripts/titlescreenimages/Untitled1.png" id="5_rhgbh"]
+[ext_resource type="Texture2D" uid="uid://bfe0krdld841" path="res://scripts/titlescreenimages/Untitled23.png" id="6_skmiq"]
+[ext_resource type="Texture2D" uid="uid://7ilsqbpduc4f" path="res://scripts/titlescreenimages/ChatGPT Image Apr 2, 2026, 11_34_49 AM.png" id="7_lf08s"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n1yhu"]
+blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vmu4"]
+shader = ExtResource("4_8vmu4")
+shader_parameter/flow_speed = 1.2
+shader_parameter/pulse_strength = 0.18
+shader_parameter/glow_boost = 1.25
+shader_parameter/alpha_mult = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xfn3p"]
+shader = ExtResource("4_8vmu4")
+shader_parameter/flow_speed = 1.2
+shader_parameter/pulse_strength = 0.18
+shader_parameter/glow_boost = 1.25
+shader_parameter/alpha_mult = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q7w76"]
+
+[sub_resource type="Animation" id="Animation_wot2p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArtRoot/ClashCore:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.83, 0.83)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArtRoot/ClashCoreGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.9, 0.9)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ArtRoot/ClashCore:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(408, 272)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ArtRoot/ClashCoreGlow:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(408, 272)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ArtRoot/ClashCoreGlow:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ArtRoot/BlueBeam:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.84313726)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ArtRoot/OrangeBeam:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.84313726)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ArtRoot/Sparks:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.37254903)]
+}
+
+[sub_resource type="Animation" id="Animation_kvwfe"]
+resource_name = "idle_loop"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArtRoot/ClashCore:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.575, 0.575), Vector2(0.955, 0.955), Vector2(0.575, 0.575)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArtRoot/ClashCoreGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.435, 1.435), Vector2(1.3, 1.3), Vector2(1.435, 1.435)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ArtRoot/ClashCoreGlow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.4509804), Color(1, 1, 1, 0.47058824), Color(1, 1, 1, 0.4509804)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ArtRoot/BlueBeam:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.43333334, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.84313726), Color(1, 1, 1, 0.5686275), Color(1, 1, 1, 0.8627451), Color(1, 1, 1, 0.84313726)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ArtRoot/OrangeBeam:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.51, 0.76666665, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.84313726), Color(1, 1, 1, 0.3137255), Color(1, 1, 1, 0.88235295), Color(1, 1, 1, 0.84313726)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ArtRoot/Sparks:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.37254903), Color(1, 1, 1, 0.5882353), Color(1, 1, 1, 0.37254903)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ArtRoot/ClashCore:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(304, 200), Vector2(504, 344), Vector2(304, 200)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ArtRoot/ClashCoreGlow:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(760, 536), Vector2(688, 480), Vector2(760, 536)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l4tom"]
+_data = {
+&"RESET": SubResource("Animation_wot2p"),
+&"idle_loop": SubResource("Animation_kvwfe")
+}
+
+[node name="TitleScreen" type="Control" unique_id=979277286]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_013yr")
+
+[node name="ArtRoot" type="Node2D" parent="." unique_id=441138843]
+position = Vector2(912, 496)
+
+[node name="EnemyWizard" type="Sprite2D" parent="ArtRoot" unique_id=296013487]
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(400, 56)
+scale = Vector2(1.14, 1.14)
+texture = ExtResource("1_jqemp")
+
+[node name="OrangeBeam" type="Sprite2D" parent="ArtRoot" unique_id=1800778777]
+modulate = Color(1, 1, 1, 0.84313726)
+z_index = 10
+material = SubResource("ShaderMaterial_8vmu4")
+position = Vector2(71.99999, 24)
+rotation = 0.3996804
+scale = Vector2(1.265, 0.276)
+texture = ExtResource("2_013yr")
+
+[node name="BlueBeam" type="Sprite2D" parent="ArtRoot" unique_id=1170506035]
+modulate = Color(1, 1, 1, 0.84313726)
+z_index = 10
+material = SubResource("ShaderMaterial_xfn3p")
+position = Vector2(856, 648)
+scale = Vector2(1.485, 1.51)
+texture = ExtResource("3_8vmu4")
+
+[node name="Sparks" type="Sprite2D" parent="ArtRoot" unique_id=857964727]
+modulate = Color(1, 1, 1, 0.37254903)
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(1216, 404)
+texture = ExtResource("4_xfn3p")
+
+[node name="ClashCore" type="Sprite2D" parent="ArtRoot" unique_id=806433731]
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(408, 272)
+scale = Vector2(0.83, 0.83)
+texture = ExtResource("5_rhgbh")
+
+[node name="ClashCoreGlow" type="Sprite2D" parent="ArtRoot" unique_id=1360792877]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(408, 272)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_rhgbh")
+
+[node name="ForegroundWizard" type="Sprite2D" parent="ArtRoot" unique_id=931227972]
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(-464, 184)
+scale = Vector2(1.105, 1.105)
+texture = ExtResource("6_skmiq")
+
+[node name="BackdropSprite" type="Sprite2D" parent="ArtRoot" unique_id=689629176]
+self_modulate = Color(0.8235294, 0.8235294, 0.8627451, 0.98039216)
+material = SubResource("CanvasItemMaterial_q7w76")
+position = Vector2(0, 8)
+texture = ExtResource("7_lf08s")
+
+[node name="MenuAnchor" type="Marker2D" parent="ArtRoot" unique_id=1647240204]
+position = Vector2(-752, -352)
+
+[node name="CreditAnchor" type="Marker2D" parent="ArtRoot" unique_id=1795961765]
+position = Vector2(512, 472)
+
+[node name="EmbersFront" type="GPUParticles2D" parent="." unique_id=1496307279]
+
+[node name="MenuRoot" type="VBoxContainer" parent="." unique_id=466326522]
+layout_mode = 1
+offset_left = 160.0
+offset_top = 160.0
+offset_right = 200.0
+offset_bottom = 204.0
+scale = Vector2(6.775, 6.775)
+
+[node name="Play" type="Button" parent="MenuRoot" unique_id=364008694]
+layout_mode = 2
+
+[node name="Loadout" type="Button" parent="MenuRoot" unique_id=345350887]
+layout_mode = 2
+
+[node name="Settings" type="Button" parent="MenuRoot" unique_id=1396901089]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="MenuRoot" unique_id=271443222]
+layout_mode = 2
+
+[node name="CreditLabel" type="Label" parent="." unique_id=830869017]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1112624737]
+libraries/ = SubResource("AnimationLibrary_l4tom")
+
+[node name="TweenManager" type="Node" parent="." unique_id=1651077339]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=354858209]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

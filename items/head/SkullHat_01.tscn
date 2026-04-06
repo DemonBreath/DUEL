@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://hhcjcjjmbfae"]
+
+[ext_resource type="PackedScene" uid="uid://dqfcpy07mko37" path="res://items/head/models/Meshy_AI_Infernal_Skull_0405030708_texture.glb" id="1_3u6ty"]
+
+[node name="SkullHat01" type="Node3D" unique_id=1514543074]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=359446588]
+
+[node name="Meshy_AI_Infernal_Skull_0405030708_texture" parent="ModelOffset" unique_id=210350965 instance=ExtResource("1_3u6ty")]

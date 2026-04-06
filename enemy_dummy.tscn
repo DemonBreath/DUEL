@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://clsk3h1531h46"]
+
+[ext_resource type="Script" uid="uid://dsypwwd7t7arl" path="res://enemy_dummy.gd" id="1_33gkd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_33gkd"]
+
+[node name="EnemyDummy" type="CharacterBody3D" unique_id=1969864466]
+script = ExtResource("1_33gkd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=528722139]
+shape = SubResource("CapsuleShape3D_33gkd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1259320332]

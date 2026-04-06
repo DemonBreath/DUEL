@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://6ulh42j4eiso"]
+
+[ext_resource type="Script" uid="uid://d1jxclipv4pqr" path="res://scripts/enemy_slime.gd" id="1_b3bix"]
+
+[node name="EnemySlime" type="Node3D" unique_id=1019682044]
+script = ExtResource("1_b3bix")
+move_speed = null
+acceleration = null
+health = null
+gravity_scale = null
+stop_distance = null
+detection_range = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=731757772]
+
+[node name="SpriteRoot" type="Node3D" parent="." unique_id=1525476674]
+
+[node name="Sprite3D" type="Sprite3D" parent="SpriteRoot" unique_id=1383747781]

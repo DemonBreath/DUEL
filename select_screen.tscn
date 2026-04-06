@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://cws8tni174gvl"]
+
+[ext_resource type="Script" uid="uid://cvh1tmpcufnwm" path="res://select_screen.gd" id="1_73v4t"]
+[ext_resource type="Texture2D" uid="uid://cwammr4270tvc" path="res://addons/_a/ChatGPT Image Mar 29, 2026, 11_24_12 AM.png" id="2_2l1u2"]
+[ext_resource type="Script" uid="uid://co6b7ld51yobs" path="res://phone_popup.gd" id="3_4opnu"]
+[ext_resource type="Script" uid="uid://8y67fkie77d1" path="res://character_select_ui.gd" id="4_vx1cw"]
+[ext_resource type="Texture2D" uid="uid://bp6yq1jct17c1" path="res://ciggy/characters/ChatGPT Image Mar 29, 2026, 01_32_15 AM.png" id="5_mcig4"]
+
+[node name="SelectScreen" type="CanvasLayer" unique_id=1032988287]
+script = ExtResource("1_73v4t")
+
+[node name="StartScreen" type="Control" parent="." unique_id=1562432387]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NameButton" type="Button" parent="StartScreen" unique_id=1749634775]
+layout_mode = 0
+offset_left = 604.8
+offset_top = 500.885
+offset_right = 985.79895
+offset_bottom = 598.88464
+rotation = -0.11032668
+scale = Vector2(1.265, 1.265)
+flat = true
+
+[node name="Background" type="TextureRect" parent="StartScreen" unique_id=855226564]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_2l1u2")
+expand_mode = 1
+
+[node name="PhonePopup" type="Control" parent="StartScreen" unique_id=1844297322]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_4opnu")
+
+[node name="Panel" type="Panel" parent="StartScreen/PhonePopup" unique_id=691767367]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="StartScreen/PhonePopup" unique_id=1837585203]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 49.0
+text = "415-990-8553;)
+"
+
+[node name="CharacterSelectUI" type="Control" parent="." unique_id=1422290713]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_vx1cw")
+
+[node name="Btn_Turtle" type="Button" parent="CharacterSelectUI" unique_id=1285408427]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 35.0
+offset_right = 280.0
+offset_bottom = 359.0
+scale = Vector2(2.197424, 0.48977903)
+
+[node name="Btn_Jackal" type="Button" parent="CharacterSelectUI" unique_id=1224023551]
+layout_mode = 0
+offset_left = 498.00003
+offset_top = 38.0
+offset_right = 574.0
+offset_bottom = 362.0
+scale = Vector2(2.197424, 0.48977903)
+
+[node name="Btn_Lava" type="Button" parent="CharacterSelectUI" unique_id=702940438]
+layout_mode = 0
+offset_left = 803.00006
+offset_top = 48.0
+offset_right = 879.00006
+offset_bottom = 372.0
+scale = Vector2(2.197424, 0.48977903)
+
+[node name="Btn_Ice" type="Button" parent="CharacterSelectUI" unique_id=213998820]
+layout_mode = 0
+offset_left = 196.99998
+offset_top = 215.00002
+offset_right = 273.0
+offset_bottom = 539.0
+scale = Vector2(2.197424, 0.48977903)
+
+[node name="Btn_Nature" type="Button" parent="CharacterSelectUI" unique_id=1796547126]
+layout_mode = 0
+offset_left = 499.00003
+offset_top = 217.00002
+offset_right = 575.0
+offset_bottom = 541.0
+scale = Vector2(2.197424, 0.48977903)
+
+[node name="Btn_Void" type="Button" parent="CharacterSelectUI" unique_id=920461175]
+layout_mode = 0
+offset_left = 804.00006
+offset_top = 209.00002
+offset_right = 880.00006
+offset_bottom = 533.0
+scale = Vector2(2.197424, 0.48977903)
+
+[node name="Btn_Angel" type="Button" parent="CharacterSelectUI" unique_id=1970971681]
+layout_mode = 0
+offset_left = 203.99998
+offset_top = 398.00003
+offset_right = 280.0
+offset_bottom = 722.0
+scale = Vector2(2.197424, 0.48977903)
+
+[node name="Btn_Shadow" type="Button" parent="CharacterSelectUI" unique_id=1026519319]
+layout_mode = 0
+offset_left = 493.00003
+offset_top = 393.00003
+offset_right = 569.0
+offset_bottom = 717.0
+scale = Vector2(2.197424, 0.48977903)
+
+[node name="Btn_Tech" type="Button" parent="CharacterSelectUI" unique_id=1188538885]
+layout_mode = 0
+offset_left = 799.00006
+offset_top = 393.00003
+offset_right = 875.00006
+offset_bottom = 717.0
+scale = Vector2(2.197424, 0.48977903)
+
+[node name="Highlight" type="ColorRect" parent="CharacterSelectUI" unique_id=1252608432]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(1, 1, 0, 0.34901962)
+
+[node name="Background" type="TextureRect" parent="CharacterSelectUI" unique_id=168806496]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 5.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_mcig4")
+expand_mode = 1

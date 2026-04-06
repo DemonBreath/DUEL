@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://btmlljol0gpqv"]
+
+[ext_resource type="PackedScene" uid="uid://c1bbfcxxn1osk" path="res://items/head/models/Meshy_AI_Golden_Masquerade_0405030817_texture.glb" id="1_5t7i4"]
+
+[node name="GildedHat01" type="Node3D" unique_id=122825169]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1922754316]
+
+[node name="Meshy_AI_Golden_Masquerade_0405030817_texture" parent="ModelOffset" unique_id=2116458429 instance=ExtResource("1_5t7i4")]

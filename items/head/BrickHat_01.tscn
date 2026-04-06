@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bwk2md6vl7177"]
+
+[ext_resource type="PackedScene" uid="uid://6leiq7qrgpvd" path="res://items/head/models/Meshy_AI_Brick_Tower_0405030701_texture.glb" id="1_42r3s"]
+
+[node name="BrickHat01" type="Node3D" unique_id=994340055]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=563294998]
+
+[node name="Meshy_AI_Brick_Tower_0405030701_texture" parent="ModelOffset" unique_id=1931531879 instance=ExtResource("1_42r3s")]

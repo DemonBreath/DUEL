@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cry7uv1id667l"]
+
+[ext_resource type="PackedScene" uid="uid://d13lbbkx2vbd3" path="res://items/head/models/Meshy_AI_Neon_Drip_Barrel_0405030757_texture.glb" id="1_6tou4"]
+
+[node name="ToxicHat01" type="Node3D" unique_id=1354166431]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=166507951]
+
+[node name="Meshy_AI_Neon_Drip_Barrel_0405030757_texture" parent="ModelOffset" unique_id=658262730 instance=ExtResource("1_6tou4")]

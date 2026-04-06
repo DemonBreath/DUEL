@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ya2fdtr3dqs"]
+
+[ext_resource type="PackedScene" uid="uid://b5dng4jgya26j" path="res://items/head/models/Meshy_AI_Neon_Horned_Skull_0405030729_texture.glb" id="1_qibfh"]
+
+[node name="HornHat01" type="Node3D" unique_id=2060975799]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1971904380]
+
+[node name="Meshy_AI_Neon_Horned_Skull_0405030729_texture" parent="ModelOffset" unique_id=1375273964 instance=ExtResource("1_qibfh")]

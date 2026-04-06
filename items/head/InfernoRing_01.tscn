@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dbnia8nug8yl6"]
+
+[ext_resource type="PackedScene" uid="uid://bfhuc341aiop7" path="res://items/head/models/Meshy_AI_Inferno_Ring_0405014855_texture.glb" id="1_lqlwf"]
+
+[node name="InfernoRingItem" type="Node3D" unique_id=1341166698]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1530811051]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.64753985, 0)
+
+[node name="Meshy_AI_Inferno_Ring_0405014855_texture" parent="ModelOffset" unique_id=1044367461 instance=ExtResource("1_lqlwf")]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 1.3187193, 0)

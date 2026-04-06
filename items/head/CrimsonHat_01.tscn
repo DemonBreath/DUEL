@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://l3x7r0ncfcl8"]
+
+[ext_resource type="PackedScene" uid="uid://doxwk1pwvdbsa" path="res://items/head/models/Meshy_AI_Crimson_Horned_Sentin_0405030751_texture.glb" id="1_8ccw6"]
+
+[node name="CrimsonHat01" type="Node3D" unique_id=1531961198]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=821319271]
+
+[node name="Meshy_AI_Crimson_Horned_Sentin_0405030751_texture" parent="ModelOffset" unique_id=33131741 instance=ExtResource("1_8ccw6")]

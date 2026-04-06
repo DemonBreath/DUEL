@@ -1,0 +1,380 @@
+[gd_scene format=3 uid="uid://c2ul1qxtg38yk"]
+
+[ext_resource type="Texture2D" uid="uid://by2xqdaumi5hw" path="res://scripts/titlescreenimages/wizard1.png" id="1_jqemp"]
+[ext_resource type="Script" uid="uid://b8g4rjb53mps1" path="res://title_screen.gd" id="1_rhgbh"]
+[ext_resource type="Texture2D" uid="uid://bmbvm165cfj8q" path="res://scripts/titlescreenimages/Untitled.png" id="2_013yr"]
+[ext_resource type="Texture2D" uid="uid://bben4sq7qo8qv" path="res://scripts/titlescreenimages/blue beam.png" id="3_8vmu4"]
+[ext_resource type="Shader" uid="uid://kvikd7h5mlij" path="res://title_screen.gdshader" id="4_8vmu4"]
+[ext_resource type="Texture2D" uid="uid://xat4sq571p28" path="res://scripts/titlescreenimages/Untitled2.png" id="4_xfn3p"]
+[ext_resource type="Texture2D" uid="uid://b6g17qxtudwqy" path="res://scripts/titlescreenimages/Untitled1.png" id="5_rhgbh"]
+[ext_resource type="Texture2D" uid="uid://bfe0krdld841" path="res://scripts/titlescreenimages/Untitled23.png" id="6_skmiq"]
+[ext_resource type="Texture2D" uid="uid://7ilsqbpduc4f" path="res://scripts/titlescreenimages/ChatGPT Image Apr 2, 2026, 11_34_49 AM.png" id="7_lf08s"]
+[ext_resource type="Texture2D" uid="uid://dm55x6uy1xcyx" path="res://scripts/titlescreenimages/ChatGPT Image Apr 3, 2026, 10_10_12 AM.png" id="9_xfn3p"]
+[ext_resource type="Script" uid="uid://b0ln24xnor1yj" path="res://play.gd" id="10_rhgbh"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q7w76"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n1yhu"]
+blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vmu4"]
+shader = ExtResource("4_8vmu4")
+shader_parameter/flow_speed = 1.2
+shader_parameter/pulse_strength = 0.18
+shader_parameter/glow_boost = 1.25
+shader_parameter/alpha_mult = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xfn3p"]
+shader = ExtResource("4_8vmu4")
+shader_parameter/flow_speed = 1.2
+shader_parameter/pulse_strength = 0.18
+shader_parameter/glow_boost = 1.25
+shader_parameter/alpha_mult = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xfn3p"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_wot2p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArtRoot/ClashCore:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.83, 0.83)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArtRoot/ClashCoreGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.9, 0.9)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ArtRoot/ClashCoreGlow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ArtRoot/BlueBeam:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.84313726)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ArtRoot/OrangeBeam:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.84313726)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ArtRoot/Sparks:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.37254903)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ArtRoot/ClashCore:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(111.999985, 128)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ArtRoot/ClashCoreGlow:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(152, 160)]
+}
+
+[sub_resource type="Animation" id="Animation_kvwfe"]
+resource_name = "idle_loop"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArtRoot/ClashCore:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.83, 0.83), Vector2(0.9, 0.9), Vector2(0.83, 0.83)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArtRoot/ClashCoreGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.9, 0.9), Vector2(0.995, 0.995), Vector2(0.9, 0.9)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ArtRoot/ClashCoreGlow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.4509804), Color(1, 1, 1, 0.47058824), Color(1, 1, 1, 0.4509804)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ArtRoot/BlueBeam:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.43333334, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.84313726), Color(1, 1, 1, 0.5686275), Color(1, 1, 1, 0.8627451), Color(1, 1, 1, 0.84313726)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ArtRoot/OrangeBeam:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.51, 0.76666665, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.84313726), Color(1, 1, 1, 0.3137255), Color(1, 1, 1, 0.88235295), Color(1, 1, 1, 0.84313726)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ArtRoot/Sparks:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.37254903), Color(1, 1, 1, 0.5882353), Color(1, 1, 1, 0.37254903)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ArtRoot/ClashCore:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(111.999985, 128), Vector2(151.99998, 160), Vector2(111.999985, 128)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ArtRoot/ClashCoreGlow:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(152, 160), Vector2(200, 200), Vector2(152, 160)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l4tom"]
+_data = {
+&"RESET": SubResource("Animation_wot2p"),
+&"idle_loop": SubResource("Animation_kvwfe")
+}
+
+[node name="TitleScreen" type="Control" unique_id=979277286]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_rhgbh")
+
+[node name="BackdropTextureRect" type="TextureRect" parent="." unique_id=237432525]
+self_modulate = Color(0.8235294, 0.8235294, 0.8627451, 0.98039216)
+material = SubResource("CanvasItemMaterial_q7w76")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_lf08s")
+expand_mode = 1
+
+[node name="ArtRoot" type="Node2D" parent="." unique_id=441138843]
+position = Vector2(912, 496)
+
+[node name="EnemyWizard" type="Sprite2D" parent="ArtRoot" unique_id=296013487]
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(-24, -136)
+scale = Vector2(0.835, 0.835)
+texture = ExtResource("1_jqemp")
+
+[node name="OrangeBeam" type="Sprite2D" parent="ArtRoot" unique_id=1800778777]
+modulate = Color(1, 1, 1, 0.84313726)
+z_index = 10
+material = SubResource("ShaderMaterial_8vmu4")
+position = Vector2(-224, -103.999985)
+rotation = 0.3996804
+scale = Vector2(1.05, 0.229)
+texture = ExtResource("2_013yr")
+
+[node name="BlueBeam" type="Sprite2D" parent="ArtRoot" unique_id=1170506035]
+modulate = Color(1, 1, 1, 0.84313726)
+z_index = 10
+material = SubResource("ShaderMaterial_xfn3p")
+position = Vector2(184.00003, 152)
+rotation = -0.08726646
+scale = Vector2(0.795, 0.807)
+texture = ExtResource("3_8vmu4")
+
+[node name="Sparks" type="Sprite2D" parent="ArtRoot" unique_id=857964727]
+modulate = Color(1, 1, 1, 0.37254903)
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(728, 240)
+texture = ExtResource("4_xfn3p")
+
+[node name="ClashCore" type="Sprite2D" parent="ArtRoot" unique_id=806433731]
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(111.999985, 128)
+scale = Vector2(0.83, 0.83)
+texture = ExtResource("5_rhgbh")
+
+[node name="ClashCoreGlow" type="Sprite2D" parent="ArtRoot" unique_id=1360792877]
+modulate = Color(1, 1, 1, 0)
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(152, 160)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_rhgbh")
+
+[node name="ForegroundWizard" type="Sprite2D" parent="ArtRoot" unique_id=931227972]
+z_index = 10
+material = SubResource("CanvasItemMaterial_n1yhu")
+position = Vector2(-704, -64)
+scale = Vector2(0.69, 0.69)
+texture = ExtResource("6_skmiq")
+
+[node name="MenuAnchor" type="Marker2D" parent="ArtRoot" unique_id=1647240204]
+position = Vector2(-736, -368)
+
+[node name="CreditAnchor" type="Marker2D" parent="ArtRoot" unique_id=1795961765]
+position = Vector2(512, 472)
+
+[node name="EmbersFront" type="GPUParticles2D" parent="." unique_id=1496307279]
+
+[node name="MenuRoot" type="Control" parent="." unique_id=1700238813]
+layout_mode = 1
+anchors_preset = 0
+offset_left = -400.0
+offset_top = 456.00003
+offset_right = -360.0
+offset_bottom = 500.00003
+scale = Vector2(1.49, 1.49)
+mouse_filter = 1
+
+[node name="HoverGlow" type="TextureRect" parent="MenuRoot" unique_id=325804083]
+material = SubResource("CanvasItemMaterial_xfn3p")
+layout_mode = 0
+offset_left = 311.4094
+offset_top = -236.24162
+offset_right = 1847.4094
+offset_bottom = 787.75836
+scale = Vector2(0.045, 0.045)
+mouse_filter = 2
+texture = ExtResource("9_xfn3p")
+
+[node name="Play" type="Button" parent="MenuRoot" unique_id=1818067536]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(220, 55)
+layout_mode = 0
+offset_left = 306.04028
+offset_top = -236.24161
+offset_right = 526.0403
+offset_bottom = -181.24161
+scale = Vector2(0.365, 0.575)
+script = ExtResource("10_rhgbh")
+
+[node name="CreditLabel" type="Label" parent="." unique_id=830869017]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1112624737]
+libraries/ = SubResource("AnimationLibrary_l4tom")
+
+[node name="TweenManager" type="Node" parent="." unique_id=1651077339]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=354858209]
+
+[node name="NameInput" type="LineEdit" parent="." unique_id=570663177]
+layout_mode = 0
+offset_right = 68.5
+offset_bottom = 31.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

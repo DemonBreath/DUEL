@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://kmruf134ngmv"]
+
+[ext_resource type="PackedScene" uid="uid://bvnhtbbqugt23" path="res://items/head/models/Meshy_AI_Ember_Crown_Mask_0405030736_texture.glb" id="1_miso3"]
+
+[node name="MechHat01" type="Node3D" unique_id=1067230837]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1523267370]
+
+[node name="Meshy_AI_Ember_Crown_Mask_0405030736_texture" parent="ModelOffset" unique_id=1148512431 instance=ExtResource("1_miso3")]

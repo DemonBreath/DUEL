@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b6h2keegyabew"]
+
+[ext_resource type="PackedScene" uid="uid://bn3p50pwf4rsc" path="res://items/head/models/Meshy_AI_Icebound_Portrait_0405030904_texture.glb" id="1_1barx"]
+
+[node name="IceHat01" type="Node3D" unique_id=1495032331]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1519670705]
+
+[node name="Meshy_AI_Icebound_Portrait_0405030904_texture" parent="ModelOffset" unique_id=294503321 instance=ExtResource("1_1barx")]

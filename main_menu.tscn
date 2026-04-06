@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://c7fjicpttteyy"]
+
+[ext_resource type="Script" uid="uid://dkdxay4xwtmlg" path="res://main_menu.gd" id="1_06t4h"]
+
+[node name="MainMenu" type="Control" unique_id=94263480]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_06t4h")
+
+[node name="Panel" type="Panel" parent="." unique_id=69055638]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostButton" type="Button" parent="Panel" unique_id=1401651224]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 72.0
+offset_right = 116.0
+offset_bottom = 103.0
+grow_horizontal = 2
+text = "Host Duel"
+
+[node name="JoinButton" type="Button" parent="Panel" unique_id=1790283784]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 40.0
+offset_right = 109.0
+offset_bottom = 71.0
+grow_horizontal = 2
+text = "Join Duel"
+
+[node name="IPInput" type="LineEdit" parent="Panel" unique_id=1931558566]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 112.0
+offset_right = 112.0
+offset_bottom = 143.0
+grow_horizontal = 2
+text = "127.0.0.1"
+
+[node name="StatusLabel" type="Label" parent="Panel" unique_id=1248567849]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 61.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Idle"

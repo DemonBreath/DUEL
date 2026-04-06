@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://duc6xiefyd7he"]
+
+[ext_resource type="PackedScene" uid="uid://2ueuvv87f24j" path="res://items/head/models/Meshy_AI_Chromatic_Entanglemen_0405031217_texture.glb" id="1_svege"]
+
+[node name="EntanglementHat01" type="Node3D" unique_id=993957429]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=817330790]
+
+[node name="Meshy_AI_Chromatic_Entanglemen_0405031217_texture" parent="ModelOffset" unique_id=1289158252 instance=ExtResource("1_svege")]

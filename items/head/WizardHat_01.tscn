@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bhkh8q7qvi0g3"]
+
+[ext_resource type="PackedScene" uid="uid://dpkrgmyw3rj5k" path="res://items/head/models/Meshy_AI_Neon_Sorcerer_s_Hat_0405030719_texture.glb" id="1_b8ukr"]
+
+[node name="WizardHat01" type="Node3D" unique_id=316684490]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=103447156]
+
+[node name="Meshy_AI_Neon_Sorcerer_s_Hat_0405030719_texture" parent="ModelOffset" unique_id=732026091 instance=ExtResource("1_b8ukr")]

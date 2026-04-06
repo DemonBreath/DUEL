@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dpeb3dqra4fll"]
+
+[ext_resource type="PackedScene" uid="uid://d057whfvdpft3" path="res://items/head/models/Meshy_AI_Prismatic_Fungus_0405030743_texture.glb" id="1_skx26"]
+
+[node name="MushroomHat01" type="Node3D" unique_id=729935613]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1568398669]
+
+[node name="Meshy_AI_Prismatic_Fungus_0405030743_texture" parent="ModelOffset" unique_id=882212182 instance=ExtResource("1_skx26")]

@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://b4nfovq1bwkx5"]
+
+[ext_resource type="Script" uid="uid://bq2b54m4mbhex" path="res://game_ui.gd" id="1_ltg2s"]
+[ext_resource type="Script" uid="uid://0wxg4xpjylau" path="res://hitmarker.gd" id="2_d6n2q"]
+[ext_resource type="AudioStream" uid="uid://dhs5f3kvsukip" path="res://player/perfect-fart.mp3" id="3_5wnrh"]
+[ext_resource type="Texture2D" uid="uid://b1v8p65rat240" path="res://player/ChatGPT Image Apr 2, 2026, 08_16_47 AM.png" id="4_uisgv"]
+[ext_resource type="Texture2D" uid="uid://ds7i031i1v0b0" path="res://assets/ChatGPT Image Apr 2, 2026, 10_50_28 AM.png" id="5_vay52"]
+[ext_resource type="Texture2D" uid="uid://bd06qe18ennfe" path="res://assets/ui/overlays/victory.png" id="6_pmdkx"]
+[ext_resource type="Texture2D" uid="uid://dvv5vaqk6eavy" path="res://assets/ui/overlays/defeat.png" id="7_ci3e8"]
+[ext_resource type="Texture2D" uid="uid://jyrvkbyryj4u" path="res://assets/ui/overlays/countdown.png" id="8_e6w2c"]
+
+[node name="GameUI" type="CanvasLayer" unique_id=1089196547 groups=["game_ui"]]
+script = ExtResource("1_ltg2s")
+
+[node name="Hitmarker" type="Control" parent="." unique_id=1507650361]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.123997934, 0.114790514)
+mouse_filter = 2
+script = ExtResource("2_d6n2q")
+show_time = 0.3
+metadata/_edit_use_anchors_ = true
+
+[node name="Audio" type="AudioStreamPlayer" parent="Hitmarker" unique_id=585733284]
+stream = ExtResource("3_5wnrh")
+
+[node name="Icon" type="TextureRect" parent="Hitmarker" unique_id=1315695581]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_uisgv")
+expand_mode = 1
+stretch_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Crosshair" type="TextureRect" parent="." unique_id=1825291521]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 976.0
+offset_bottom = 976.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_vay52")
+metadata/_edit_use_anchors_ = true
+
+[node name="OverlayRoot" type="Control" parent="." unique_id=994673856]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="VictoryOverlay" type="TextureRect" parent="OverlayRoot" unique_id=394806010]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_pmdkx")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DefeatOverlay" type="TextureRect" parent="OverlayRoot" unique_id=232405690]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_ci3e8")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CountdownOverlay" type="TextureRect" parent="OverlayRoot" unique_id=1190300382]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_e6w2c")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="RankUpOverlay" type="TextureRect" parent="OverlayRoot" unique_id=1163433280]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="RankDownOverlay" type="TextureRect" parent="OverlayRoot" unique_id=186249283]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6

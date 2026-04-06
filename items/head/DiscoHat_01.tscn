@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ggwev4act6ec"]
+
+[ext_resource type="PackedScene" uid="uid://kbdvftlutgm1" path="res://items/head/models/Meshy_AI_Kaleidoscopic_Disco_B_0405030931_texture.glb" id="1_o427b"]
+
+[node name="DiscoHat01" type="Node3D" unique_id=1502839896]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=936829224]
+
+[node name="Meshy_AI_Kaleidoscopic_Disco_B_0405030931_texture" parent="ModelOffset" unique_id=1541622113 instance=ExtResource("1_o427b")]

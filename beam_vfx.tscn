@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bu8rs0u2vp3f3"]
+
+[ext_resource type="Script" uid="uid://dr3n5cv71001a" path="res://beam_vfx.gd" id="1_3k0dw"]
+[ext_resource type="PackedScene" uid="uid://b8re3u8p80yjb" path="res://player/Meshy_AI_Azure_Comet_Beam_0402123157_texture.glb" id="2_3k0dw"]
+
+[node name="BeamVFX" type="Node3D" unique_id=618480508]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_3k0dw")
+
+[node name="Glow" type="GPUParticles3D" parent="." unique_id=256355299]
+visible = false
+
+[node name="BeamPivot" type="Node3D" parent="." unique_id=1575122138]
+
+[node name="BeamOffset" type="Node3D" parent="BeamPivot" unique_id=190236911]
+
+[node name="Meshy_AI_Azure_Comet_Beam_0402123157_texture" parent="BeamPivot/BeamOffset" unique_id=1344633048 instance=ExtResource("2_3k0dw")]
+transform = Transform3D(5.5, 0, 0, 0, 5.5, 0, 0, 0, 17.43, 0, 0, 0)

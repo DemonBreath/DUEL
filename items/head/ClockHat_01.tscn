@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://do17wcanqku8w"]
+
+[ext_resource type="PackedScene" uid="uid://dv5umm1okrf1q" path="res://items/head/models/Meshy_AI_Gilded_Chronometer_0405030841_texture.glb" id="1_6b6cd"]
+
+[node name="ClockHat01" type="Node3D" unique_id=2091553132]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1795874390]
+
+[node name="Meshy_AI_Gilded_Chronometer_0405030841_texture" parent="ModelOffset" unique_id=616238364 instance=ExtResource("1_6b6cd")]

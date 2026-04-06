@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://g7jcwnmqm0np"]
+
+[node name="IntroHUD" type="CanvasLayer" unique_id=561472456]
+
+[node name="ReadyStatusLabel" type="Label" parent="." unique_id=213424940]
+offset_left = 542.0
+offset_top = 590.0
+offset_right = 611.0
+offset_bottom = 613.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "WAITING"
+
+[node name="ReadyButton" type="Button" parent="." unique_id=123614967]
+offset_left = 542.0
+offset_top = 603.0
+offset_right = 611.0
+offset_bottom = 634.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "READY"

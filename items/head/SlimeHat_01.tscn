@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dm531at5a8v7r"]
+
+[ext_resource type="PackedScene" uid="uid://ddu0y68iqw64t" path="res://items/head/models/Meshy_AI_Liquid_Neon_Brain_0405030921_texture.glb" id="1_vfaah"]
+
+[node name="SlimeHat01" type="Node3D" unique_id=1555242506]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=37973169]
+
+[node name="Meshy_AI_Liquid_Neon_Brain_0405030921_texture" parent="ModelOffset" unique_id=1648604429 instance=ExtResource("1_vfaah")]

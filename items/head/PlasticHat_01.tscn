@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://lkp1poio0l2x"]
+
+[ext_resource type="PackedScene" uid="uid://btbqx3a8nb1jh" path="res://items/head/models/Meshy_AI_Whisper_of_the_Nebula_0405030848_texture.glb" id="1_uhnh7"]
+
+[node name="PlasticHat01" type="Node3D" unique_id=1614902628]
+
+[node name="ModelOffset" type="Node3D" parent="." unique_id=1215057739]
+
+[node name="Meshy_AI_Whisper_of_the_Nebula_0405030848_texture" parent="ModelOffset" unique_id=1137167027 instance=ExtResource("1_uhnh7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85527205, 0)
