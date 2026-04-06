@@ -41,8 +41,10 @@ signal intro_finished
 var intro_running: bool = false
 var player_saved_spike_positions: Dictionary = {}
 var enemy_saved_spike_positions: Dictionary = {}
+var intro_camera_default_local_position: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
+	intro_camera_default_local_position = intro_camera.position
 	_cache_specific_spike_positions(player_spike_ring, player_saved_spike_positions)
 	_cache_specific_spike_positions(enemy_spike_ring, enemy_saved_spike_positions)
 	_reset_intro_visuals()
@@ -192,7 +194,7 @@ func _set_camera_from_anchor(anchor: Node3D, look_target: Node3D) -> void:
 
 	orbit_yaw.global_transform = anchor.global_transform
 	orbit_pitch.rotation = Vector3.ZERO
-	intro_camera.position = Vector3.ZERO
+	intro_camera.position = intro_camera_default_local_position
 	intro_camera.look_at(
 		look_target.global_transform.origin + Vector3(0.0, intro_look_height, 0.0),
 		Vector3.UP
@@ -217,7 +219,11 @@ func _rise_egg_and_spikes(egg_root: Node3D, target_y: float, ring: Node3D, cache
 func _finish_intro(local_player: Node3D, local_original: Dictionary, enemy_original: Dictionary, enemy_player: Node3D = null) -> void:
 	if local_player != null:
 		if local_original.has("transform"):
-			local_player.global_transform = local_original["transform"]
+			var saved_local_transform: Transform3D = local_original["transform"]
+			if _looks_like_uninitialized_origin(saved_local_transform):
+				push_warning("MatchIntroController: Skipping local transform restore because saved transform is at origin.")
+			else:
+				local_player.global_transform = saved_local_transform
 		if local_original.has("visible"):
 			local_player.visible = bool(local_original["visible"])
 
@@ -233,7 +239,11 @@ func _finish_intro(local_player: Node3D, local_original: Dictionary, enemy_origi
 
 	if enemy_player != null:
 		if enemy_original.has("transform"):
-			enemy_player.global_transform = enemy_original["transform"]
+			var saved_enemy_transform: Transform3D = enemy_original["transform"]
+			if _looks_like_uninitialized_origin(saved_enemy_transform):
+				push_warning("MatchIntroController: Skipping enemy transform restore because saved transform is at origin.")
+			else:
+				enemy_player.global_transform = saved_enemy_transform
 		if enemy_original.has("visible"):
 			enemy_player.visible = bool(enemy_original["visible"])
 
@@ -247,6 +257,10 @@ func _finish_intro(local_player: Node3D, local_original: Dictionary, enemy_origi
 
 	intro_running = false
 	intro_finished.emit()
+
+func _looks_like_uninitialized_origin(candidate: Transform3D) -> bool:
+	var origin: Vector3 = candidate.origin
+	return absf(origin.x) < 0.1 and absf(origin.z) < 0.1
 
 func _input(event: InputEvent) -> void:
 	if not allow_manual_test_trigger:
