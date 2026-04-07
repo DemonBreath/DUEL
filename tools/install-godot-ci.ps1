@@ -47,8 +47,21 @@ Expand-Archive -Path $consoleZip -DestinationPath $installRoot -Force
 
 $templateArchive = Join-Path $downloadRoot "Godot_v$Version-$Status_export_templates.tpz"
 $templateZip = Join-Path $downloadRoot "Godot_v$Version-$Status_export_templates.zip"
+$templateExtractRoot = Join-Path $downloadRoot "export_templates"
 Copy-Item -Path $templateArchive -Destination $templateZip -Force
-Expand-Archive -Path $templateZip -DestinationPath $templateRoot -Force
+if (Test-Path $templateExtractRoot) {
+    Remove-Item -Recurse -Force $templateExtractRoot
+}
+
+Expand-Archive -Path $templateZip -DestinationPath $templateExtractRoot -Force
+
+$templateSource = $templateExtractRoot
+$nestedTemplateSource = Join-Path $templateExtractRoot "templates"
+if (Test-Path $nestedTemplateSource) {
+    $templateSource = $nestedTemplateSource
+}
+
+Copy-Item -Path (Join-Path $templateSource "*") -Destination $templateRoot -Recurse -Force
 
 $consoleExe = Join-Path $installRoot "Godot_v$Version-$Status_win64_console.exe"
 if (-not (Test-Path $consoleExe)) {
