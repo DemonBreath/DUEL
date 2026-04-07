@@ -58,31 +58,16 @@ jobs:
       - name: Configure SSH
         env:
           DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
-          DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+          DEPLOY_SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          DEPLOY_SSH_PORT: ${{ secrets.DEPLOY_SSH_PORT }}
         run: |
           set -euo pipefail
           mkdir -p "$HOME/.ssh"
           chmod 700 "$HOME/.ssh"
           printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > "$HOME/.ssh/id_ed25519"
           chmod 600 "$HOME/.ssh/id_ed25519"
-          printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          ssh-keyscan -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_HOST" > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/known_hosts"
-
-      - name: Debug SSH host matching
-        env:
-          DEPLOY_SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
-          DEPLOY_SSH_PORT: ${{ secrets.DEPLOY_SSH_PORT }}
-        run: |
-          set -euo pipefail
-          echo "DEPLOY_SSH_HOST=$DEPLOY_SSH_HOST"
-          echo "DEPLOY_SSH_PORT=$DEPLOY_SSH_PORT"
-          echo "known_hosts line count: $(wc -l < "$HOME/.ssh/known_hosts")"
-          echo "known_hosts preview:"
-          sed -n '1,5p' "$HOME/.ssh/known_hosts"
-          echo "ssh-keygen lookup by host:"
-          ssh-keygen -F "$DEPLOY_SSH_HOST" -f "$HOME/.ssh/known_hosts" || true
-          echo "ssh-keyscan live host key:"
-          ssh-keyscan -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_HOST" 2>/dev/null || true
 
       - name: Deploy Linux server to VM
         env:
@@ -99,7 +84,6 @@ jobs:
 # - DEPLOY_SSH_PORT: SSH port, usually 22
 # - DEPLOY_SSH_USER: SSH username on the VM
 # - DEPLOY_SSH_PRIVATE_KEY: private key with write access to the target directory
-# - DEPLOY_SSH_KNOWN_HOSTS: output of "ssh-keyscan -H <host>"
 # - DEPLOY_TARGET_DIR: runtime directory on the VM that should contain DUEL.x86_64 and DUEL.pck,
 #   for example /home/alexandercampbell
 # - DEPLOY_RESTART_COMMAND: exact remote restart command, for example:
