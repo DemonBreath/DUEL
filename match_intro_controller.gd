@@ -41,6 +41,7 @@ signal intro_finished
 var intro_running: bool = false
 var player_saved_spike_positions: Dictionary = {}
 var enemy_saved_spike_positions: Dictionary = {}
+var skip_intro_for_session: bool = false
 
 func _ready() -> void:
 	_cache_specific_spike_positions(player_spike_ring, player_saved_spike_positions)
@@ -51,9 +52,34 @@ func start_intro_for_players(local_player: Node3D, enemy_player: Node3D) -> void
 	if intro_running:
 		return
 
+	if LaunchOptions.should_skip_match_intro():
+		var local_original := {
+			"transform": local_player.global_transform if local_player != null else Transform3D.IDENTITY,
+			"visible": local_player.visible if local_player != null else true
+		}
+		var enemy_original := {
+			"transform": enemy_player.global_transform if enemy_player != null else Transform3D.IDENTITY,
+			"visible": enemy_player.visible if enemy_player != null else true
+		}
+		print("MATCH INTRO | skipped by launch option")
+		_finish_intro(local_player, local_original, enemy_original, enemy_player)
+		return
+
 	if local_player == null or enemy_player == null:
 		push_warning("MatchIntroController: Missing local or enemy player.")
 		_finish_intro(local_player, {}, {}, enemy_player)
+		return
+
+	if skip_intro_for_session:
+		var local_original := {
+			"transform": local_player.global_transform,
+			"visible": local_player.visible
+		}
+		var enemy_original := {
+			"transform": enemy_player.global_transform,
+			"visible": enemy_player.visible
+		}
+		_finish_intro(local_player, local_original, enemy_original, enemy_player)
 		return
 
 	intro_running = true
@@ -247,6 +273,11 @@ func _finish_intro(local_player: Node3D, local_original: Dictionary, enemy_origi
 
 	intro_running = false
 	intro_finished.emit()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_O:
+		skip_intro_for_session = not skip_intro_for_session
+		print("MATCH INTRO | skip_intro_for_session = ", skip_intro_for_session)
 
 func _input(event: InputEvent) -> void:
 	if not allow_manual_test_trigger:

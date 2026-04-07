@@ -105,6 +105,8 @@ var max_health: int = 100
 var current_ammo: int = 0
 
 var duel_is_over: bool = false
+var test_fire_requested: bool = false
+var last_test_bot_log_time_msec: int = 0
 
 var loadout_data: Dictionary = {}
 var stat_move_speed: float = 8.5
@@ -261,6 +263,7 @@ func _physics_process(delta: float) -> void:
 	if is_local_player():
 		_update_timers(delta)
 		_update_camera_rotation()
+		_run_test_bot()
 
 		if combat_state != STATE_DEAD:
 			_handle_state_machine(delta)
@@ -285,6 +288,33 @@ func _physics_process(delta: float) -> void:
 				remote_target_transform,
 				min(delta * 12.0, 1.0)
 			)
+
+func _run_test_bot() -> void:
+	if not LaunchOptions.has_flag("test-bot"):
+		return
+
+	if not is_test_combat_ready():
+		return
+
+	var enemy := _find_test_bot_enemy()
+	if enemy == null:
+		return
+
+	var target_position: Vector3 = enemy.global_position + Vector3(0.0, 1.2, 0.0)
+	test_aim_at_world_position(target_position)
+	test_request_fire()
+
+	var now_msec := Time.get_ticks_msec()
+	if now_msec - last_test_bot_log_time_msec >= 1000:
+		last_test_bot_log_time_msec = now_msec
+		print("PLAYER TEST BOT | engaging ", enemy.name)
+
+func _find_test_bot_enemy() -> Node3D:
+	var players := get_tree().get_nodes_in_group("player")
+	for player in players:
+		if player != self and player is Node3D:
+			return player as Node3D
+	return null
 
 func _update_timers(delta: float) -> void:
 	if shot_cooldown_timer > 0.0:
@@ -334,7 +364,7 @@ func _process_free_state(delta: float) -> void:
 	_process_movement(delta, 1.0, false)
 	_process_jump()
 
-	if _can_start_aim():
+	if _should_start_aim():
 		_play_named_animation(shoot_anim_name)
 		_enter_state(STATE_ENTER_AIM, enter_aim_duration)
 		_freeze_momentum_for_shot()
@@ -476,7 +506,18 @@ func _update_camera_position(delta: float) -> void:
 
 	camera.position = camera.position.lerp(target, speed * delta)
 
-func _can_start_aim() -> bool:
+func _should_start_aim() -> bool:
+	if not _can_start_aim_core():
+		test_fire_requested = false
+		return false
+
+	if test_fire_requested:
+		test_fire_requested = false
+		return true
+
+	return Input.is_action_just_pressed("fire")
+
+func _can_start_aim_core() -> bool:
 	if duel_is_over:
 		return false
 	if not match_active:
@@ -487,7 +528,7 @@ func _can_start_aim() -> bool:
 		return false
 	if current_ammo <= 0:
 		return false
-	return Input.is_action_just_pressed("fire")
+	return true
 
 func _fire_shot() -> void:
 	if current_ammo <= 0:
@@ -910,3 +951,31 @@ func get_hat_inventory_data() -> Dictionary:
 		return {}
 
 	return inventory.call("to_data")
+
+func is_test_combat_ready() -> bool:
+	return is_local_player() and match_active and not duel_is_over and combat_state != STATE_DEAD
+
+func test_request_fire() -> void:
+	if not is_local_player():
+		return
+
+	test_fire_requested = true
+
+func test_aim_at_world_position(target_position: Vector3) -> void:
+	if not is_local_player():
+		return
+
+	var origin := camera.global_transform.origin
+	var direction := (target_position - origin).normalized()
+	if direction.length() <= 0.001:
+		return
+
+	yaw = atan2(-direction.x, -direction.z)
+	var horizontal_length := Vector2(direction.x, direction.z).length()
+	pitch = atan2(direction.y, horizontal_length)
+	pitch = clamp(
+		pitch,
+		deg_to_rad(min_pitch_deg),
+		deg_to_rad(max_pitch_deg)
+	)
+	_update_camera_rotation()

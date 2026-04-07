@@ -1,0 +1,47 @@
+name: Verify And Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GODOT_VERSION: "4.6.2"
+  GODOT_STATUS: "stable"
+  TESTER_BUILD_BRANCH: "main"
+
+jobs:
+  verify:
+    runs-on: windows-2022
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Godot and export templates
+        shell: pwsh
+        run: .\tools\install-godot-ci.ps1 -Version $env:GODOT_VERSION -Status $env:GODOT_STATUS
+
+      - name: Run verification harness
+        shell: pwsh
+        run: .\tools\run-full-suite.ps1 -BasePort 8940
+
+      - name: Upload verification logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-logs
+          path: .codex-run
+          if-no-files-found: warn
+
+      - name: Upload Windows tester build
+        if: github.event_name == 'push' && github.ref == format('refs/heads/{0}', env.TESTER_BUILD_BRANCH)
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-tester-build
+          path: |
+            .codex-run/build/Duel.exe
+            .codex-run/build/Duel.pck
+          if-no-files-found: error
