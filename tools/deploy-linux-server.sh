@@ -26,13 +26,21 @@ ssh -p "$DEPLOY_SSH_PORT" "${DEPLOY_SSH_USER}@${DEPLOY_SSH_HOST}" \
    target_dir='$DEPLOY_TARGET_DIR'; \
    release_id='$release_id'; \
    remote_archive='$remote_archive'; \
-   release_dir=\"\$target_dir/releases/\$release_id\"; \
-   mkdir -p \"\$target_dir/releases\"; \
-   rm -rf \"\$release_dir\"; \
-   mkdir -p \"\$release_dir\"; \
-   tar -xzf \"\$remote_archive\" -C \"\$release_dir\"; \
-   chmod +x \"\$release_dir/DUEL.x86_64\"; \
-   ln -sfn \"\$release_dir\" \"\$target_dir/current\"; \
+   staging_dir=\"\$target_dir/.deploy-staging/\$release_id\"; \
+   backup_dir=\"\$target_dir/.deploy-backups/\$release_id\"; \
+   mkdir -p \"\$target_dir\"; \
+   rm -rf \"\$staging_dir\"; \
+   mkdir -p \"\$staging_dir\"; \
+   tar -xzf \"\$remote_archive\" -C \"\$staging_dir\"; \
+   test -f \"\$staging_dir/DUEL.x86_64\"; \
+   test -f \"\$staging_dir/DUEL.pck\"; \
+   mkdir -p \"\$backup_dir\"; \
+   if [ -f \"\$target_dir/DUEL.x86_64\" ]; then cp -f \"\$target_dir/DUEL.x86_64\" \"\$backup_dir/DUEL.x86_64\"; fi; \
+   if [ -f \"\$target_dir/DUEL.pck\" ]; then cp -f \"\$target_dir/DUEL.pck\" \"\$backup_dir/DUEL.pck\"; fi; \
+   mv -f \"\$staging_dir/DUEL.x86_64\" \"\$target_dir/DUEL.x86_64\"; \
+   mv -f \"\$staging_dir/DUEL.pck\" \"\$target_dir/DUEL.pck\"; \
+   chmod +x \"\$target_dir/DUEL.x86_64\"; \
+   rm -rf \"\$staging_dir\"; \
    rm -f \"\$remote_archive\"; \
    $DEPLOY_RESTART_COMMAND"
 

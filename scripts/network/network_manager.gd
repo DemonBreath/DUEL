@@ -36,7 +36,10 @@ func host_game(port: int = DEFAULT_PORT) -> bool:
 
 	var result := peer.create_server(current_port, MAX_PLAYERS)
 	if result != OK:
-		push_error("NetworkManager | Failed to host game: %s" % result)
+		push_error(
+			"NetworkManager | Failed to host game on port %d: %s (%d)" %
+			[current_port, error_string(result), result]
+		)
 		peer = null
 		return false
 

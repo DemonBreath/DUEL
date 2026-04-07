@@ -84,6 +84,7 @@ jobs:
 # - DEPLOY_SSH_USER: SSH username on the VM
 # - DEPLOY_SSH_PRIVATE_KEY: private key with write access to the target directory
 # - DEPLOY_SSH_KNOWN_HOSTS: output of "ssh-keyscan -H <host>"
-# - DEPLOY_TARGET_DIR: base path on the VM, for example /srv/duel-server
+# - DEPLOY_TARGET_DIR: runtime directory on the VM that should contain DUEL.x86_64 and DUEL.pck,
+#   for example /home/alexandercampbell
 # - DEPLOY_RESTART_COMMAND: exact remote restart command, for example:
-#   sudo systemctl restart duel-server.service
+#   pkill -f '/home/alexandercampbell/DUEL.x86_64 --headless' || true; nohup /home/alexandercampbell/DUEL.x86_64 --headless --server-port=8910 >/home/alexandercampbell/duel-server.log 2>&1 < /dev/null &

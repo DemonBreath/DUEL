@@ -17,6 +17,7 @@ func _start_server_boot() -> void:
 	print("BOOT | RUNNING AS HEADLESS SERVER")
 
 	var resolved_port := LaunchOptions.get_server_port(server_port)
+	print("BOOT | SERVER PORT: ", resolved_port)
 	var hosted_ok := NetworkManager.host_game(resolved_port)
 	if not hosted_ok:
 		print("BOOT | SERVER FAILED TO START")
