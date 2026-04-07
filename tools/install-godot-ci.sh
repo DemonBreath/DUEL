@@ -29,7 +29,13 @@ tmp_templates_dir="$download_root/export_templates_${version}_${status}"
 rm -rf "$tmp_templates_dir"
 mkdir -p "$tmp_templates_dir"
 unzip -oq "$template_tpz" -d "$tmp_templates_dir"
-cp -R "$tmp_templates_dir/." "$template_root/"
+
+template_source_dir="$tmp_templates_dir"
+if [ -d "$tmp_templates_dir/templates" ]; then
+  template_source_dir="$tmp_templates_dir/templates"
+fi
+
+cp -R "$template_source_dir/." "$template_root/"
 
 godot_bin="$(find "$install_root" -maxdepth 1 -type f -name 'Godot_v*_linux.x86_64' | head -n 1)"
 if [ -z "$godot_bin" ]; then
