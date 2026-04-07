@@ -25,6 +25,8 @@ NetworkManager="*uid://c8i6tce6asm76"
 PlayerNameManager="*uid://yblahplwaxub"
 ItemDatabase="*uid://hm4bl1506u46"
 HatAccountManager="*uid://bxtp4qosir27k"
+LaunchOptions="*res://launch_options.gd"
+MatchTestDriver="*res://match_test_driver.gd"
 
 [input]
 

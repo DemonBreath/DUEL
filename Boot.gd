@@ -16,7 +16,8 @@ func _ready() -> void:
 func _start_server_boot() -> void:
 	print("BOOT | RUNNING AS HEADLESS SERVER")
 
-	var hosted_ok := NetworkManager.host_game(server_port)
+	var resolved_port := LaunchOptions.get_server_port(server_port)
+	var hosted_ok := NetworkManager.host_game(resolved_port)
 	if not hosted_ok:
 		print("BOOT | SERVER FAILED TO START")
 		return
@@ -33,9 +34,20 @@ func _load_server_scene() -> void:
 	var err := get_tree().change_scene_to_file(server_scene_path)
 	if err != OK:
 		print("BOOT | FAILED TO LOAD SERVER SCENE: ", err)
+	elif LaunchOptions.should_smoke_exit_on_scene("arena"):
+		_schedule_smoke_exit()
 
 func _load_client_scene() -> void:
 	print("BOOT | LOADING CLIENT SCENE: ", client_scene_path)
 	var err := get_tree().change_scene_to_file(client_scene_path)
 	if err != OK:
 		print("BOOT | FAILED TO LOAD CLIENT SCENE: ", err)
+
+func _schedule_smoke_exit() -> void:
+	var exit_delay := LaunchOptions.get_smoke_exit_delay()
+	print("BOOT | SMOKE EXIT SCHEDULED IN ", exit_delay, "s")
+	get_tree().create_timer(exit_delay).timeout.connect(_quit_smoke_run)
+
+func _quit_smoke_run() -> void:
+	print("BOOT | SMOKE EXIT")
+	get_tree().quit()

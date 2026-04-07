@@ -1,7 +1,7 @@
 extends Control
 
 @export var arena_scene_path: String = "res://arena.tscn"
-@export var default_server_ip: String = "8.229.209.249"
+@export var default_server_ip: String = "127.0.0.1"
 @export var default_server_port: int = 8910
 @export var connect_timeout_seconds: float = 6.0
 
@@ -14,6 +14,9 @@ var connection_in_progress: bool = false
 var connect_timeout_timer: float = 0.0
 
 func _ready() -> void:
+	default_server_ip = LaunchOptions.get_server_ip(default_server_ip)
+	default_server_port = LaunchOptions.get_server_port(default_server_port)
+
 	if host_button != null:
 		host_button.visible = true
 		host_button.disabled = false
@@ -43,6 +46,14 @@ func _ready() -> void:
 
 	if not NetworkManager.disconnected_from_server.is_connected(_on_server_disconnected):
 		NetworkManager.disconnected_from_server.connect(_on_server_disconnected)
+
+	match LaunchOptions.get_menu_action():
+		"host":
+			call_deferred("_on_host_pressed")
+		"join":
+			call_deferred("_on_join_pressed")
+		_:
+			pass
 
 func _process(delta: float) -> void:
 	if not connection_in_progress:

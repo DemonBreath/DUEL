@@ -1,0 +1,89 @@
+name: Deploy Linux Server
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to build and deploy
+        required: true
+        default: main
+
+permissions:
+  contents: read
+
+env:
+  GODOT_VERSION: "4.6.2"
+  GODOT_STATUS: "stable"
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Install Godot and export templates
+        run: bash ./tools/install-godot-ci.sh "$GODOT_VERSION" "$GODOT_STATUS"
+
+      - name: Export Linux server package
+        run: bash ./tools/export-linux-server.sh
+
+      - name: Upload Linux server artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-server-package
+          path: |
+            .codex-run/linux-server
+            .codex-run/linux-server.tar.gz
+          if-no-files-found: error
+
+  deploy:
+    runs-on: ubuntu-24.04
+    needs: build
+    environment: production
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Download Linux server artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-server-package
+          path: .codex-run
+
+      - name: Configure SSH
+        env:
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > "$HOME/.ssh/id_ed25519"
+          chmod 600 "$HOME/.ssh/id_ed25519"
+          printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Deploy Linux server to VM
+        env:
+          DEPLOY_SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          DEPLOY_SSH_PORT: ${{ secrets.DEPLOY_SSH_PORT }}
+          DEPLOY_SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+          DEPLOY_TARGET_DIR: ${{ secrets.DEPLOY_TARGET_DIR }}
+          DEPLOY_RESTART_COMMAND: ${{ secrets.DEPLOY_RESTART_COMMAND }}
+        run: bash ./tools/deploy-linux-server.sh
+
+#
+# Required GitHub Secrets for this workflow:
+# - DEPLOY_SSH_HOST: hostname or IP of the Linux VM
+# - DEPLOY_SSH_PORT: SSH port, usually 22
+# - DEPLOY_SSH_USER: SSH username on the VM
+# - DEPLOY_SSH_PRIVATE_KEY: private key with write access to the target directory
+# - DEPLOY_SSH_KNOWN_HOSTS: output of "ssh-keyscan -H <host>"
+# - DEPLOY_TARGET_DIR: base path on the VM, for example /srv/duel-server
+# - DEPLOY_RESTART_COMMAND: exact remote restart command, for example:
+#   sudo systemctl restart duel-server.service

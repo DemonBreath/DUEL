@@ -55,6 +55,7 @@ var countdown_value_sent: int = -1
 
 var hat_inventory_by_peer: Dictionary = {}
 var account_id_by_peer: Dictionary = {}
+var test_round_end_scheduled: bool = false
 
 func _ready() -> void:
 	add_to_group("arena")
@@ -76,6 +77,7 @@ func _ready() -> void:
 	_push_ui_status_to_local("WAITING FOR PLAYERS")
 	_push_ui_round_number_to_local(round_number)
 	_push_ui_score_to_local(scores)
+	_set_waiting_player_controls_local()
 
 	if NetworkManager.is_host():
 		var host_peer_id := multiplayer.get_unique_id()
@@ -92,6 +94,9 @@ func _ready() -> void:
 	else:
 		call_deferred("_send_temp_client_defaults")
 		call_deferred("_send_local_hat_inventory_to_host")
+
+	if LaunchOptions.should_smoke_exit_on_scene("arena"):
+		call_deferred("_schedule_smoke_exit")
 
 func _process(delta: float) -> void:
 	if not NetworkManager.is_host():
@@ -167,6 +172,7 @@ func begin_countdown() -> void:
 	match_state = MatchState.COUNTDOWN
 	countdown_timer = float(countdown_seconds)
 	countdown_value_sent = -1
+	test_round_end_scheduled = false
 
 	print("ARENA | MATCH STATE -> COUNTDOWN | round ", round_number)
 	_emit_match_state("COUNTDOWN")
@@ -191,9 +197,12 @@ func start_round() -> void:
 
 	_push_ui_status_to_local("ROUND %d | LIVE" % round_number)
 
-	_set_all_players_match_active_local(false, true)
+	if LaunchOptions.should_skip_match_intro():
+		_set_all_players_match_active_local(true, false)
+	else:
+		_set_all_players_match_active_local(false, true)
 
-	if match_intro_controller != null:
+	if match_intro_controller != null and not LaunchOptions.should_skip_match_intro():
 		var host_peer_id := multiplayer.get_unique_id()
 		var host_local_player: Node3D = get_spawned_player_for_peer(host_peer_id) as Node3D
 		var host_enemy_player: Node3D = null
@@ -206,8 +215,11 @@ func start_round() -> void:
 		if host_local_player != null and host_enemy_player != null:
 			match_intro_controller.call("start_intro_for_players", host_local_player, host_enemy_player)
 
-	rpc("start_match_intro_remote")
+	if not LaunchOptions.should_skip_match_intro():
+		rpc("start_match_intro_remote")
 	rpc("set_round_live_remote", round_number)
+
+	_schedule_test_round_end_if_needed()
 
 func end_round(winner_peer_id: int, losing_peer_id: int) -> void:
 	if not NetworkManager.is_host():
@@ -259,6 +271,7 @@ func reset_round() -> void:
 		_emit_match_state("WAITING")
 		print("ARENA | MATCH STATE -> WAITING")
 		_push_ui_status_to_local("WAITING FOR PLAYERS")
+		_set_waiting_player_controls_local()
 
 func _spawn_player_for_peer_local(peer_id: int, spawn_transform: Transform3D) -> void:
 	if spawned_players.has(peer_id):
@@ -493,7 +506,10 @@ func set_round_live_remote(synced_round_number: int) -> void:
 	round_number = synced_round_number
 	print("ARENA | ROUND ", round_number, " | LIVE")
 
-	_set_all_players_match_active_local(false, true)
+	if LaunchOptions.should_skip_match_intro():
+		_set_all_players_match_active_local(true, false)
+	else:
+		_set_all_players_match_active_local(false, true)
 
 	_push_ui_round_number_to_local(round_number)
 	_push_ui_status_to_local("ROUND %d | LIVE" % round_number)
@@ -746,6 +762,7 @@ func _on_player_left(peer_id: int) -> void:
 		_emit_match_state("WAITING")
 		print("ARENA | MATCH STATE -> WAITING (disconnect)")
 		_push_ui_status_to_local("WAITING FOR PLAYERS")
+		_set_waiting_player_controls_local()
 
 func _peer_id_from_account_id(account_id: String) -> int:
 	for peer_id in account_id_by_peer.keys():
@@ -765,6 +782,20 @@ func _find_other_peer(dead_peer_id: int) -> int:
 
 func _emit_match_state(state_name: String) -> void:
 	emit_signal("match_state_changed", state_name)
+
+func _set_waiting_player_controls_local() -> void:
+	for peer_id in spawned_players.keys():
+		var player: Node = spawned_players[peer_id]
+		if not is_instance_valid(player):
+			continue
+
+		if player.has_method("set_duel_over"):
+			player.call("set_duel_over", false)
+
+		if player.has_method("set_match_active"):
+			player.call("set_match_active", true)
+
+		print("ARENA | WAITING PLAYER STATE | ", player.name, " | match_active=true | duel_over=false")
 
 func _get_game_ui() -> Node:
 	return get_node_or_null("GameUI")
@@ -850,3 +881,78 @@ func get_spawned_player_for_peer(peer_id: int) -> Node:
 	if spawned_players.has(peer_id):
 		return spawned_players[peer_id]
 	return null
+
+func get_match_state_name() -> String:
+	match match_state:
+		MatchState.WAITING:
+			return "WAITING"
+		MatchState.COUNTDOWN:
+			return "COUNTDOWN"
+		MatchState.LIVE:
+			return "LIVE"
+		MatchState.ROUND_OVER:
+			return "ROUND_OVER"
+	return "UNKNOWN"
+
+func _schedule_test_round_end_if_needed() -> void:
+	if not NetworkManager.is_host():
+		return
+
+	if test_round_end_scheduled:
+		return
+
+	var winner_mode := LaunchOptions.get_test_round_winner()
+	if winner_mode == "":
+		return
+
+	test_round_end_scheduled = true
+	var end_delay := LaunchOptions.get_test_round_end_delay()
+	print("ARENA | TEST ROUND END SCHEDULED | winner=", winner_mode, " delay=", end_delay)
+	get_tree().create_timer(end_delay).timeout.connect(_run_test_round_end)
+
+func _run_test_round_end() -> void:
+	if not NetworkManager.is_host():
+		return
+
+	if match_state != MatchState.LIVE:
+		print("ARENA | TEST ROUND END SKIPPED | match_state=", match_state)
+		return
+
+	var winner_mode := LaunchOptions.get_test_round_winner()
+	var winner_peer_id := -1
+
+	match winner_mode:
+		"host":
+			winner_peer_id = 1
+		"client":
+			winner_peer_id = _find_first_non_host_peer()
+		_:
+			print("ARENA | TEST ROUND END SKIPPED | unsupported winner mode=", winner_mode)
+			return
+
+	var loser_peer_id := _find_other_peer(winner_peer_id)
+	if winner_peer_id == -1 or loser_peer_id == -1:
+		print("ARENA | TEST ROUND END SKIPPED | invalid peers | winner=", winner_peer_id, " loser=", loser_peer_id)
+		return
+
+	print("ARENA | TEST ROUND END | winner=", winner_peer_id, " loser=", loser_peer_id)
+	end_round(winner_peer_id, loser_peer_id)
+
+func _find_first_non_host_peer() -> int:
+	for peer_id in connected_peer_order:
+		if int(peer_id) != 1:
+			return int(peer_id)
+	return -1
+
+func _schedule_smoke_exit() -> void:
+	var tree := get_tree()
+	if tree == null:
+		return
+
+	var exit_delay := LaunchOptions.get_smoke_exit_delay()
+	print("ARENA | SMOKE EXIT SCHEDULED IN ", exit_delay, "s")
+	tree.create_timer(exit_delay).timeout.connect(_quit_smoke_run)
+
+func _quit_smoke_run() -> void:
+	print("ARENA | SMOKE EXIT")
+	get_tree().quit()

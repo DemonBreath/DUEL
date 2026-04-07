@@ -24,6 +24,7 @@ var current_ready_state: Dictionary = {}
 var current_intro_data: Dictionary = {}
 var current_selected_character: String = "turtle"
 var current_loadout_data: Dictionary = {}
+var smoke_exit_scheduled: bool = false
 
 func is_dedicated_server() -> bool:
 	return DisplayServer.get_name() == "headless"
@@ -194,6 +195,11 @@ func show_round_result_text(text: String) -> void:
 	elif text == "YOU LOSE":
 		show_defeat()
 
+	_validate_expected_local_result(text)
+
+	if LaunchOptions.should_smoke_exit_on_scene("round_over"):
+		_schedule_smoke_exit()
+
 func set_score_data(synced_scores: Dictionary) -> void:
 	current_score_data = synced_scores.duplicate(true)
 	print("GAMEUI SCORES: ", current_score_data)
@@ -271,3 +277,30 @@ func send_player_name() -> void:
 
 	player_name_sent_to_server = false
 	_try_send_player_name()
+
+func _validate_expected_local_result(actual_text: String) -> void:
+	var expected_result := LaunchOptions.get_expected_local_result()
+	if expected_result == "":
+		return
+
+	if actual_text == expected_result:
+		print("GAMEUI TEST | EXPECTED RESULT CONFIRMED: ", expected_result)
+	else:
+		push_error("GAMEUI TEST | EXPECTED RESULT MISMATCH | expected=%s actual=%s" % [expected_result, actual_text])
+
+func _schedule_smoke_exit() -> void:
+	if smoke_exit_scheduled:
+		return
+
+	var tree := get_tree()
+	if tree == null:
+		return
+
+	smoke_exit_scheduled = true
+	var exit_delay := LaunchOptions.get_smoke_exit_delay()
+	print("GAMEUI | SMOKE EXIT SCHEDULED IN ", exit_delay, "s")
+	tree.create_timer(exit_delay).timeout.connect(_quit_smoke_run)
+
+func _quit_smoke_run() -> void:
+	print("GAMEUI | SMOKE EXIT")
+	get_tree().quit()

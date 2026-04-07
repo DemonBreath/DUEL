@@ -28,6 +28,17 @@ func _ready() -> void:
 		name_input.placeholder_text = "ENTER NAME"
 		_load_saved_name()
 
+	var override_name := LaunchOptions.get_player_name_override()
+	if override_name != "" and name_input != null:
+		name_input.text = override_name
+		PlayerNameManager.set_player_name_value(override_name)
+
+	if LaunchOptions.should_smoke_exit_on_scene("title"):
+		_schedule_smoke_exit()
+
+	if LaunchOptions.should_auto_advance_title():
+		call_deferred("_on_play_pressed")
+
 func _load_saved_name() -> void:
 	if not FileAccess.file_exists(PLAYER_NAME_SAVE_PATH):
 		return
@@ -70,3 +81,12 @@ func _on_play_hovered() -> void:
 
 func _on_play_unhovered() -> void:
 	print("PLAY UNHOVERED")
+
+func _schedule_smoke_exit() -> void:
+	var exit_delay := LaunchOptions.get_smoke_exit_delay()
+	print("TITLE | SMOKE EXIT SCHEDULED IN ", exit_delay, "s")
+	get_tree().create_timer(exit_delay).timeout.connect(_quit_smoke_run)
+
+func _quit_smoke_run() -> void:
+	print("TITLE | SMOKE EXIT")
+	get_tree().quit()
